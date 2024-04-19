@@ -17,7 +17,7 @@ inputs:
     description: 'DockerHub token for authentication'
     required: true
   github_token:
-    description: 'Automatically created token. Set this to ${{ secrets.GITHUB_TOKEN }}'
+    description: 'Automatically created token. Set this to the GITHUB_TOKEN secret'
     required: true
   gitleaks_token:
     description: 'Organisational token for Gitleaks'
