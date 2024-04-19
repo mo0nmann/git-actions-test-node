@@ -19,6 +19,9 @@ inputs:
   dockerhub_token:
     description: 'DockerHub token for authentication'
     required: true
+  gitleaks_token:
+    description: 'Organisational token for Gitleaks'
+    required: false # only required for Organizations, not personal accounts
 
 runs:
   using: 'composite'
@@ -28,3 +31,9 @@ runs:
 
     - name: Validate conventional commits
       uses: wagoid/commitlint-github-action@v6    
+
+    - name: Scan for secrets
+      uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # auto assigned by GitHub when actions gets kicked off. No need to define
+        GITLEAKS_LICENSE: ${{ inputs.gitleaks_token != '' && inputs.gitleaks_token || 'unset' }} 
