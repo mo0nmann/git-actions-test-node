@@ -7,4 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Run Custom Angular.js action
-      uses: ./.github/actions/angular.yml
+      uses: ./.github/actions/node
