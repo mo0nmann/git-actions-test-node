@@ -60,6 +60,6 @@ runs:
       run: npm ci
       shell: bash
 
-    - name: Build Angular application
-      run: npm run build
+    - name: Test Angular application
+      run: ng test --no-watch --no-progress --browsers=ChromeHeadless
       shell: bash
