@@ -57,7 +57,7 @@ runs:
         node-version: ${{ inputs.node_version }}
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
       shell: bash
 
     - name: Build Angular application

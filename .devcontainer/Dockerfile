@@ -12,5 +12,10 @@ FROM mcr.microsoft.com/devcontainers/typescript-node:dev-${VARIANT}
 # ARG EXTRA_NODE_VERSION=10
 # RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
 
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+    sudo apt-get update && \
+    sudo apt-get install -y google-chrome-stable xvfb
+
 # [Optional] Uncomment if you want to install more global node modules
-RUN sudo -u node npm install -g npm @angular/cli @angular/core 
+RUN sudo -u node npm install -g npm @angular/cli @angular/core
