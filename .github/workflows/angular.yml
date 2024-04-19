@@ -1,0 +1,10 @@
+name: Angular CI Workflow
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run Custom Angular.js action
+      uses: ./github/actions/angular.yml
