@@ -19,6 +19,9 @@ inputs:
   dockerhub_token:
     description: 'DockerHub token for authentication'
     required: true
+  github_token:
+    description: 'Automatically created token. Set this to ${{ secrets.GITHUB_TOKEN }}'
+    required: true
   gitleaks_token:
     description: 'Organisational token for Gitleaks'
     required: false # only required for Organizations, not personal accounts
@@ -35,5 +38,5 @@ runs:
     - name: Scan for secrets
       uses: gitleaks/gitleaks-action@v2
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # auto assigned by GitHub when actions gets kicked off. No need to define
+        GITHUB_TOKEN: ${{ inputs.github_token }}
         GITLEAKS_LICENSE: ${{ inputs.gitleaks_token != '' && inputs.gitleaks_token || 'unset' }} 
