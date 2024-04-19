@@ -58,6 +58,8 @@ runs:
 
     - name: Install dependencies
       run: npm install
+      shell: bash
 
     - name: Build Angular application
       run: npm run build
+      shell: bash
