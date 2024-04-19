@@ -7,9 +7,6 @@ inputs:
   docker_image_name:
     description: 'Docker image name'
     required: true
-  github_token:
-    description: 'GitHub token for authentication'
-    required: true
   sonar_token:
     description: 'Token for SonarCloud access'
     required: true
