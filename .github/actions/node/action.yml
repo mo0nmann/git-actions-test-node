@@ -61,5 +61,5 @@ runs:
       shell: bash
 
     - name: Test Angular application
-      run: ng test --no-watch --no-progress --browsers=ChromeHeadless
+      run: npm test --no-watch --no-progress --browsers=ChromeHeadless
       shell: bash
