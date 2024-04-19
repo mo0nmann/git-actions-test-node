@@ -36,4 +36,4 @@ runs:
       uses: gitleaks/gitleaks-action@v2
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
-        GITLEAKS_LICENSE: ${{ inputs.gitleaks_token != '' && inputs.gitleaks_token || 'unset' }} 
+        GITLEAKS_LICENSE: ${{ inputs.gitleaks_token != '' && inputs.gitleaks_token || 'aaagabagoo' }} 
