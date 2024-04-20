@@ -60,7 +60,6 @@ runs:
       run: npm ci
       shell: bash
 
-    - name: Test Angular application (headless) via xvfb
-      uses: coactions/setup-xvfb@v1
-        run: npm test
+    - name: Test Angular application (headless)
+      run: npm run test:ci
       
