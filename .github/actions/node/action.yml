@@ -62,4 +62,5 @@ runs:
 
     - name: Test Angular application (headless)
       run: npm run test:ci
+      shell: bash
       
