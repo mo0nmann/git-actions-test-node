@@ -65,6 +65,7 @@ runs:
 
     - name: Create test:ci
       run: npm pkg set scripts.test:ci="ng test --no-watch --no-progress --browsers=ChromeHeadless"
+      shell: bash
 
     - name: Test Angular application (headless)
       run: npm run test:ci
