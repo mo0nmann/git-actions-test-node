@@ -63,4 +63,9 @@ runs:
     - name: Test Angular application (headless)
       run: npm run test:ci
       shell: bash
-      
+
+    - name: Sonarcloud SAST
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        SONAR_TOKEN: ${{ inputs.sonar_token }}      

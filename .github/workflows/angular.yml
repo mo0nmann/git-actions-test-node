@@ -12,4 +12,5 @@ jobs:
     - name: Run Custom Angular.js action
       uses: ./.github/actions/node
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }} 
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        sonar_token: ${{ secrets.SONAR_TOKEN }}
