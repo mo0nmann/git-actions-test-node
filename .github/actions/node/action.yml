@@ -22,6 +22,9 @@ inputs:
   gitleaks_token:
     description: 'Organisational token for Gitleaks'
     required: false # only required for Organizations, not personal accounts
+  sonar_args:
+    description: 'Custom SonarCloud arguments'
+    required: true
 
 runs:
   using: 'composite'
