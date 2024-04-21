@@ -68,4 +68,6 @@ runs:
       uses: sonarsource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
-        SONAR_TOKEN: ${{ inputs.sonar_token }}      
+        SONAR_TOKEN: ${{ inputs.sonar_token }}
+      with:
+        args: ${{ inputs.sonar_args }}
