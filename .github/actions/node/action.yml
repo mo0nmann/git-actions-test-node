@@ -15,9 +15,9 @@ inputs:
     required: true
   sonar_args:
     description: 'Custom SonarCloud arguments'
+    required: true
   docker_image_name:
     description: 'Docker image name'
-    required: true
     required: true
   dockerhub_username:
     description: 'DockerHub username'
