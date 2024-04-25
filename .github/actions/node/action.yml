@@ -83,3 +83,13 @@ runs:
       run: |
         docker build -t ${{ inputs.docker_image_name }}:${{ github.sha }} .
       shell: bash
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ${{ inputs.docker_image_name }}:${{ github.sha }}
+        format: 'table'
+        exit-code: '1'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
