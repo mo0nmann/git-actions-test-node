@@ -78,3 +78,7 @@ runs:
         SONAR_TOKEN: ${{ inputs.sonar_token }}
       with:
         args: ${{ inputs.sonar_args }}
+
+    - name: Build Docker image for testing
+      run: |
+        docker build -t ${{ docker_image_name }}:${{ github.sha }} .
