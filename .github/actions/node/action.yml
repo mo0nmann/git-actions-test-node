@@ -81,4 +81,4 @@ runs:
 
     - name: Build Docker image for testing
       run: |
-        docker build -t ${{ docker_image_name }}:${{ github.sha }} .
+        docker build -t ${{ inputs.docker_image_name }}:${{ github.sha }} .
