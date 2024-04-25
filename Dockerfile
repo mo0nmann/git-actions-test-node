@@ -2,11 +2,11 @@ FROM cgr.dev/chainguard/node:latest
 
 WORKDIR /app
 
-COPY package*.json /app
+COPY --chown=node:node package*.json ./ 
 
 RUN npm install
 
-COPY . /app
+COPY --chown=node:node . .
 
 RUN npm run build
 
