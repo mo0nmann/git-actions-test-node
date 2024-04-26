@@ -24,3 +24,6 @@ jobs:
           -Dsonar.organization=mo0nmann
           -Dsonar.projectKey=mo0nmann_git-actions-test-node
         docker_image_name: test-angular-project
+        container_registry: docker.io
+        container_registry_username: ${{ secrets.DOCKERHUB_USERNAME }}
+        container_registry_password: ${{ secrets.DOCKERHUB_TOKEN }}
