@@ -106,5 +106,7 @@ runs:
 
     - name: Semantic Release
       uses: cycjimmy/semantic-release-action@v4
+      with:
+        branch: main
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
