@@ -10,6 +10,7 @@ inputs:
     required: false # only required for Organizations, not personal accounts
   node_version:
     description: 'Node Version'
+    required: false
   sonar_token:
     description: 'Token for SonarCloud access'
     required: true
@@ -102,3 +103,5 @@ runs:
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
+
+    - name: Generate tag
