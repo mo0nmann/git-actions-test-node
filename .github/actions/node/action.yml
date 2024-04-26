@@ -93,18 +93,22 @@ runs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
+    - name: Format test image tag for caching
+      run: |
+        echo "formatted_branch_name=$(echo ${{ steps.branch-names.outputs.current_branch }} | sed 's/\//-/g')" >> $GITHUB_ENV
+
     - name: Build Docker image for testing
       uses: docker/build-push-action@v5
       with:
         load: true
-        tags: ${{ inputs.docker_image_name }}:${{ steps.branch-names.outputs.current_branch }}
+        tags: ${{ inputs.docker_image_name }}:${{ env.formatted_branch_name }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
     
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: ${{ inputs.docker_image_name }}:${{ steps.branch-names.outputs.current_branch }}
+        image-ref: ${{ inputs.docker_image_name }}:${{ env.formatted_branch_name }}
         format: 'table'
         exit-code: '1'
         ignore-unfixed: true
