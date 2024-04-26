@@ -96,6 +96,7 @@ runs:
     - name: Format test image tag for caching
       run: |
         echo "formatted_branch_name=$(echo ${{ steps.branch-names.outputs.current_branch }} | sed 's/\//-/g')" >> $GITHUB_ENV
+      shell: bash
 
     - name: Build Docker image for testing
       uses: docker/build-push-action@v5
