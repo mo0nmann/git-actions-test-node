@@ -79,10 +79,19 @@ runs:
       with:
         args: ${{ inputs.sonar_args }}
 
+    - name: Add QEMU support
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
     - name: Build Docker image for testing
-      run: |
-        docker build -t ${{ inputs.docker_image_name }}:${{ github.sha }} .
-      shell: bash
+      uses: docker/build-push-action@v5
+      with:
+        push: false
+        tags: ${{ inputs.docker_image_name }}:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
     
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
