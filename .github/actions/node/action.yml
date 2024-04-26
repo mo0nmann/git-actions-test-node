@@ -88,6 +88,7 @@ runs:
     - name: Build Docker image for testing
       uses: docker/build-push-action@v5
       with:
+        load: true
         tags: ${{ inputs.docker_image_name }}:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
