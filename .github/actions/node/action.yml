@@ -23,10 +23,10 @@ inputs:
   container_registry:
     description: 'Container Registry'
     required: true
-  conainer_registry_username:
+  container_registry_username:
     description: 'Container Registry username'
     required: true
-  conainer_registry_password:
+  container_registry_password:
     description: 'Container Registry password'
     required: true
 
