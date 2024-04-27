@@ -38,7 +38,9 @@ runs:
       uses: tj-actions/branch-names@v8
 
     - name: Checkout code
-      uses: actions/checkout@v4    
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0   
 
     - name: Validate conventional commits
       uses: wagoid/commitlint-github-action@v6    
@@ -125,7 +127,7 @@ runs:
         password: ${{ inputs.container_registry_password }}
 
     - name: Semantic Release
-      if: ${{ steps.branch-names.outputs.current_branch == 'main' }} 
+      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' }} 
       uses: cycjimmy/semantic-release-action@v4
       id: semantic
       with:
@@ -134,13 +136,13 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github_token }}
 
     - name: Tag previously built image
-      if: ${{ steps.branch-names.outputs.current_branch == 'main' }}
+      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' }}
       run: |
         docker tag ${{ inputs.docker_image_name }}:${{ env.formatted_branch_name }} ${{ inputs.container_registry }}/${{ inputs.container_registry_username }}/${{ inputs.docker_image_name }}:${{ steps.semantic.outputs.new_release_version }}
       shell: bash
 
     - name: Push tagged image to container registry
-      if: ${{ steps.branch-names.outputs.current_branch == 'main' }}
+      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' }}
       run: |
         docker push ${{ inputs.container_registry }}/${{ inputs.container_registry_username }}/${{ inputs.docker_image_name }}:${{ steps.semantic.outputs.new_release_version }}
       shell: bash
