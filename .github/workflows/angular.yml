@@ -6,8 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      contents: write
+      contents: read|write
       issues: write
       pull-requests: write
       id-token: write
