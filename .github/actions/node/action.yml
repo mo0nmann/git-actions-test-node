@@ -141,11 +141,12 @@ runs:
       uses: docker/metadata-action@v5
       with:
         images: ${{ inputs.container_registry_username }}/${{ inputs.docker_image_name }}
+        tags: ${{ steps.semantic.outputs.new_release_version }}
 
     - name: Build and push image to container registry
       if: ${{ steps.branch-names.outputs.current_branch == 'main' && steps.semantic.outputs.new_release_published == 'true' }}
       uses: docker/build-push-action@v5
       with:
         push: true
-        tags: ${{ steps.semantic.outputs.new_release_version }}
+        tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
