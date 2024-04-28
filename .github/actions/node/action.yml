@@ -20,14 +20,11 @@ inputs:
   docker_image_name:
     description: 'Docker image name'
     required: true
-  container_registry:
-    description: 'Container Registry'
+  dockerhub_username:
+    description: 'Dockerhub username'
     required: true
-  container_registry_username:
-    description: 'Container Registry username'
-    required: true
-  container_registry_password:
-    description: 'Container Registry password'
+  dockerhub_token:
+    description: 'Dockerhub Token'
     required: true
 
 runs:
@@ -118,13 +115,12 @@ runs:
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
 
-    - name: Login to container repository
+    - name: Login to dockerhub
       if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' }} 
       uses: docker/login-action@v3
       with:
-        registry: ${{ inputs.container_registry }}
-        username: ${{ inputs.container_registry_username }}
-        password: ${{ inputs.container_registry_password }}
+        username: ${{ inputs.dockerhub_username }}
+        password: ${{ inputs.dockerhub_token }}
 
     - name: Login to GitHub Container Registry (For repository packages)
       if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push'}} 
@@ -149,13 +145,13 @@ runs:
       uses: docker/metadata-action@v5
       with:
         images: |
-          ${{ inputs.container_registry }}/${{ inputs.container_registry_username }}/${{ inputs.docker_image_name }}
+          ${{ inputs.dockerhub_username }}/${{ inputs.docker_image_name }}
           ghcr.io/${{ github.repository_owner }}/${{ inputs.docker_image_name }}
         tags: |
           ${{ steps.semantic.outputs.new_release_version }}
           latest
 
-    - name: Build and push image to container registry
+    - name: Build and push image
       if: ${{ steps.branch-names.outputs.current_branch == 'main' && steps.semantic.outputs.new_release_published == 'true' }}
       uses: docker/build-push-action@v5
       with:
