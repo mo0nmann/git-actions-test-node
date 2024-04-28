@@ -136,13 +136,13 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github_token }}
 
     - name: Tag previously built image
-      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' }}
+      if: ${{ steps.branch-names.outputs.current_branch == 'main' && steps.semantic.outputs.new_release_published == 'true' }}
       run: |
         docker tag ${{ inputs.docker_image_name }}:${{ env.formatted_branch_name }} ${{ inputs.container_registry }}/${{ inputs.container_registry_username }}/${{ inputs.docker_image_name }}:${{ steps.semantic.outputs.new_release_version }}
       shell: bash
 
     - name: Push tagged image to container registry
-      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' }}
+      if: ${{ steps.branch-names.outputs.current_branch == 'main' && steps.semantic.outputs.new_release_published == 'true' }}
       run: |
         docker push ${{ inputs.container_registry }}/${{ inputs.container_registry_username }}/${{ inputs.docker_image_name }}:${{ steps.semantic.outputs.new_release_version }}
       shell: bash
