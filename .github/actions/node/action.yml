@@ -150,7 +150,7 @@ runs:
       with:
         images: |
           ${{ inputs.container_registry }}/${{ inputs.container_registry_username }}/${{ inputs.docker_image_name }}
-          ghcr.io/${{ inputs.container_registry_username }}/${{ inputs.docker_image_name }}
+          ghcr.io/${{ github.repository }}
         tags: |
           ${{ steps.semantic.outputs.new_release_version }}
           latest
