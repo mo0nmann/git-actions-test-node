@@ -139,8 +139,18 @@ runs:
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
 
+    - name: Set image tag
+      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' }}
+      run: |
+        if [[ $(echo ${{ steps.semantic.outputs.new_release_published }}) = "true" ]]; then
+          echo "image_tag=$(echo ${{ steps.semantic.outputs.new_release_version }})" >> $GITHUB_ENV
+        else
+          echo "image_tag=$(echo ${{ steps.semantic.outputs.last_release_version }})" >> $GITHUB_ENV
+        fi        
+      shell: bash
+
     - name: Extract metadata (tags, labels) for Docker
-      if: ${{ steps.branch-names.outputs.current_branch == 'main' && steps.semantic.outputs.new_release_published == 'true' }}
+      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' }}
       id: meta
       uses: docker/metadata-action@v5
       with:
@@ -148,11 +158,11 @@ runs:
           ${{ inputs.dockerhub_username }}/${{ inputs.docker_image_name }}
           ghcr.io/${{ github.repository_owner }}/${{ inputs.docker_image_name }}
         tags: |
-          ${{ steps.semantic.outputs.new_release_version }}
+          ${{ env.image_tag }}
           latest
 
     - name: Build and push image
-      if: ${{ steps.branch-names.outputs.current_branch == 'main' && steps.semantic.outputs.new_release_published == 'true' }}
+      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' }}
       uses: docker/build-push-action@v5
       with:
         push: true
