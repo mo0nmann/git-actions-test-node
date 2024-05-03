@@ -124,14 +124,14 @@ runs:
       shell: bash
 
     - name: Login to dockerhub
-      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' && env.private_repo == "false" }} 
+      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' && env.private_repo == 'false' }} 
       uses: docker/login-action@v3
       with:
         username: ${{ inputs.dockerhub_username }}
         password: ${{ inputs.dockerhub_token }}
 
     - name: Login to GitHub Container Registry
-      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' && env.private_repo == "true" }} 
+      if: ${{ steps.branch-names.outputs.current_branch == 'main' && github.event_name == 'push' && env.private_repo == 'true' }} 
       uses: docker/login-action@v3
       with:
         registry: ghcr.io
