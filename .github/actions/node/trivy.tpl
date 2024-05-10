@@ -10,15 +10,16 @@
         <th>Fixed Version</th>
     </tr>
     {{- range . }}
+    {{- $currentTarget := .Target }} <!-- Store current Target in a variable -->
     {{- if (eq (len .Vulnerabilities) 0) }}
     <tr>
-        <td><code>{{ escapeXML .Target }}</code></td>
+        <td><code>{{ escapeXML $currentTarget }}</code></td>
         <td colspan="5">No Vulnerabilities found</td>
     </tr>
     {{- else }}
     {{- range .Vulnerabilities }}
     <tr>
-        <td><code>{{ escapeXML $.Target }}</code></td>
+        <td><code>{{ escapeXML $currentTarget }}</code></td>
         <td><code>{{ escapeXML .PkgName }}</code></td>
         <td>{{ escapeXML .VulnerabilityID }}</td>
         <td>{{ escapeXML .Severity }}</td>
@@ -41,15 +42,16 @@
         <th>Message</th>
     </tr>
     {{- range . }}
+    {{- $currentTarget := .Target }} <!-- Store current Target in a variable -->
     {{- if (eq (len .Misconfigurations) 0) }}
     <tr>
-        <td><code>{{ escapeXML .Target }}</code></td>
+        <td><code>{{ escapeXML $currentTarget }}</code></td>
         <td colspan="5">No Misconfigurations found</td>
     </tr>
     {{- else }}
     {{- range .Misconfigurations }}
     <tr>
-        <td><code>{{ escapeXML $.Target }}</code></td>
+        <td><code>{{ escapeXML $currentTarget }}</code></td>
         <td>{{ escapeXML .Type }}</td>
         <td>{{ escapeXML .ID }}</td>
         <td>{{ escapeXML .Title }}</td>
