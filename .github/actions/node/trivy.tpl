@@ -1,8 +1,5 @@
 {{- if . }}
 <h4>Vulnerabilities</h4>
-{{- if (eq (len .Vulnerabilities) 0) }}
-<p>No Vulnerabilities found</p>
-{{- else }}
 <table>
     <tr>
         <th>Target</th>
@@ -13,6 +10,12 @@
         <th>Fixed Version</th>
     </tr>
     {{- range . }}
+    {{- if (eq (len .Vulnerabilities) 0) }}
+    <tr>
+        <td><code>{{ escapeXML .Target }}</code></td>
+        <td colspan="5">No Vulnerabilities found</td>
+    </tr>
+    {{- else }}
     {{- range .Vulnerabilities }}
     <tr>
         <td><code>{{ escapeXML $.Target }}</code></td>
@@ -24,13 +27,10 @@
     </tr>
     {{- end }}
     {{- end }}
+    {{- end }}
 </table>
-{{- end }}
 
 <h4>Misconfigurations</h4>
-{{- if (eq (len .Misconfigurations) 0) }}
-<p>No Misconfigurations found</p>
-{{- else }}
 <table>
     <tr>
         <th>Target</th>
@@ -41,6 +41,12 @@
         <th>Message</th>
     </tr>
     {{- range . }}
+    {{- if (eq (len .Misconfigurations) 0) }}
+    <tr>
+        <td><code>{{ escapeXML .Target }}</code></td>
+        <td colspan="5">No Misconfigurations found</td>
+    </tr>
+    {{- else }}
     {{- range .Misconfigurations }}
     <tr>
         <td><code>{{ escapeXML $.Target }}</code></td>
@@ -55,8 +61,8 @@
     </tr>
     {{- end }}
     {{- end }}
+    {{- end }}
 </table>
-{{- end }}
 {{- else }}
 <h3>Trivy Returned Empty Report</h3>
 {{- end }}
