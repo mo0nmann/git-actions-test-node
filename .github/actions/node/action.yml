@@ -118,7 +118,9 @@ runs:
         severity: 'CRITICAL,HIGH'
 
     - name: Add Trivy output to action summary
-      run: cat trivy-high-critical.md >> $GITHUB_STEP_SUMMARY
+      run: | 
+        echo "# Trivy Results"
+        cat trivy-high-critical.md >> $GITHUB_STEP_SUMMARY
       shell: bash
 
     - name: Check if repository is public or private
