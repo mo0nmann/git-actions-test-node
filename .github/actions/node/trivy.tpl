@@ -1,7 +1,6 @@
 {{- if . }}
-{{- range . }}
-<h3>Target: <code>{{ escapeXML .Target }}</code></h3>
 <h4>Vulnerabilities</h4>
+{{- range . }}
 <table>
     <tr>
         <th colspan="5">Vulnerabilities for <code>{{ escapeXML .Target }}</code></th>
@@ -29,8 +28,11 @@
     {{- end }}
     {{- end }}
 </table>
+<br> <!-- Spacing between tables for different targets -->
+{{- end }}
 
 <h4>Misconfigurations</h4>
+{{- range . }}
 <table>
     <tr>
         <th colspan="5">Misconfigurations for <code>{{ escapeXML .Target }}</code></th>
@@ -61,6 +63,7 @@
     {{- end }}
     {{- end }}
 </table>
+<br> <!-- Spacing between tables for different targets -->
 {{- end }}
 {{- else }}
 <h3>Trivy Returned Empty Report</h3>
