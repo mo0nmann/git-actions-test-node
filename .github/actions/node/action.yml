@@ -110,10 +110,16 @@ runs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: ${{ inputs.docker_image_name }}:${{ env.formatted_branch_name }}
-        format: 'table'
+        format: template
+        template: "@/github/workspace/.github/trivy/markdown.tpl"
+        output: trivy-high-critical.md
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
+
+    - name: Add Trivy output to action summary
+      run: cat trivy-high-critical.md >> $GITHUB_STEP_SUMMARY
+      shell: bash
 
     - name: Check if repository is public or private
       run: |
