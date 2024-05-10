@@ -1,25 +1,25 @@
 {{- if . }}
+{{- range . }}
+<h3>Target: <code>{{ escapeXML .Target }}</code></h3>
 <h4>Vulnerabilities</h4>
 <table>
     <tr>
-        <th>Target</th>
+        <th colspan="5">Vulnerabilities for <code>{{ escapeXML .Target }}</code></th>
+    </tr>
+    <tr>
         <th>Package</th>
         <th>ID</th>
         <th>Severity</th>
         <th>Installed Version</th>
         <th>Fixed Version</th>
     </tr>
-    {{- range . }}
-    {{- $currentTarget := .Target }} <!-- Store current Target in a variable -->
     {{- if (eq (len .Vulnerabilities) 0) }}
     <tr>
-        <td><code>{{ escapeXML $currentTarget }}</code></td>
         <td colspan="5">No Vulnerabilities found</td>
     </tr>
     {{- else }}
     {{- range .Vulnerabilities }}
     <tr>
-        <td><code>{{ escapeXML $currentTarget }}</code></td>
         <td><code>{{ escapeXML .PkgName }}</code></td>
         <td>{{ escapeXML .VulnerabilityID }}</td>
         <td>{{ escapeXML .Severity }}</td>
@@ -28,30 +28,27 @@
     </tr>
     {{- end }}
     {{- end }}
-    {{- end }}
 </table>
 
 <h4>Misconfigurations</h4>
 <table>
     <tr>
-        <th>Target</th>
+        <th colspan="5">Misconfigurations for <code>{{ escapeXML .Target }}</code></th>
+    </tr>
+    <tr>
         <th>Type</th>
         <th>ID</th>
         <th>Check</th>
         <th>Severity</th>
         <th>Message</th>
     </tr>
-    {{- range . }}
-    {{- $currentTarget := .Target }} <!-- Store current Target in a variable -->
     {{- if (eq (len .Misconfigurations) 0) }}
     <tr>
-        <td><code>{{ escapeXML $currentTarget }}</code></td>
         <td colspan="5">No Misconfigurations found</td>
     </tr>
     {{- else }}
     {{- range .Misconfigurations }}
     <tr>
-        <td><code>{{ escapeXML $currentTarget }}</code></td>
         <td>{{ escapeXML .Type }}</td>
         <td>{{ escapeXML .ID }}</td>
         <td>{{ escapeXML .Title }}</td>
@@ -63,8 +60,8 @@
     </tr>
     {{- end }}
     {{- end }}
-    {{- end }}
 </table>
+{{- end }}
 {{- else }}
 <h3>Trivy Returned Empty Report</h3>
 {{- end }}
