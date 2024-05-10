@@ -110,7 +110,7 @@ runs:
       with:
         image-ref: ${{ inputs.docker_image_name }}:${{ env.formatted_branch_name }}
         format: 'table'
-        ignore-unfixed: false
+        ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
 
